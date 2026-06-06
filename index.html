@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Youness Salmi — Mechanical Engineer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Fraunces:ital,wght@0,300;0,700;1,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0d0d0d;
+      --surface: #141414;
+      --border: #2a2a2a;
+      --accent: #e8c84a;
+      --accent2: #c0392b;
+      --text: #e8e4dc;
+      --muted: #6b6760;
+      --grid: rgba(255,255,255,0.025);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      font-size: 14px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* Engineering grid background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 48px;
+      background: rgba(13,13,13,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      letter-spacing: 3px;
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: color .2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 0 48px;
+      gap: 60px;
+    }
+
+    .hero-left {
+      padding-top: 80px;
+      animation: fadeUp .8s ease both;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--accent);
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .hero-tag::before {
+      content: '';
+      display: inline-block;
+      width: 32px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .hero-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(72px, 9vw, 130px);
+      line-height: 0.9;
+      letter-spacing: 2px;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .hero-name span { color: var(--accent); }
+
+    .hero-title {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 20px;
+      color: var(--muted);
+      margin-bottom: 32px;
+      letter-spacing: 1px;
+    }
+
+    .hero-desc {
+      color: #a09c96;
+      max-width: 420px;
+      font-size: 13.5px;
+      line-height: 1.9;
+      margin-bottom: 48px;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all .25s;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #0d0d0d;
+    }
+
+    .btn-primary:hover {
+      background: #f5d75a;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(232,200,74,0.25);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* Stats strip */
+    .stats-strip {
+      display: flex;
+      gap: 0;
+      margin-top: 64px;
+      border-top: 1px solid var(--border);
+      padding-top: 32px;
+    }
+
+    .stat {
+      flex: 1;
+      padding-right: 32px;
+      border-right: 1px solid var(--border);
+      margin-right: 32px;
+    }
+
+    .stat:last-child { border-right: none; margin-right: 0; }
+
+    .stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 42px;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* Hero right: engineering schematic card */
+    .hero-right {
+      position: relative;
+      padding-top: 80px;
+      animation: fadeUp .8s ease .2s both;
+    }
+
+    .schematic-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 36px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .schematic-card::before {
+      content: 'FIG. 01 — PROFILE';
+      position: absolute;
+      top: 16px; right: 20px;
+      font-size: 9px;
+      letter-spacing: 2px;
+      color: var(--muted);
+    }
+
+    .schematic-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 20px,
+        rgba(255,255,255,0.012) 20px,
+        rgba(255,255,255,0.012) 21px
+      );
+      pointer-events: none;
+    }
+
+    .profile-photo-wrapper {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: #1a1a1a;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .profile-photo-wrapper svg {
+      width: 160px;
+      opacity: 0.18;
+    }
+
+    .corner {
+      position: absolute;
+      width: 16px; height: 16px;
+      border-color: var(--accent);
+      border-style: solid;
+    }
+    .corner.tl { top: 10px; left: 10px; border-width: 2px 0 0 2px; }
+    .corner.tr { top: 10px; right: 10px; border-width: 2px 2px 0 0; }
+    .corner.bl { bottom: 10px; left: 10px; border-width: 0 0 2px 2px; }
+    .corner.br { bottom: 10px; right: 10px; border-width: 0 2px 2px 0; }
+
+    .photo-label {
+      position: absolute;
+      bottom: 12px; left: 16px;
+      font-size: 9px;
+      letter-spacing: 2px;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+
+    .spec-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .spec-item {
+      border-left: 2px solid var(--border);
+      padding-left: 12px;
+    }
+
+    .spec-item:nth-child(odd) { border-color: var(--accent); }
+
+    .spec-key {
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .spec-val {
+      font-size: 13px;
+      color: var(--text);
+      margin-top: 2px;
+    }
+
+    /* ABOUT */
+    section { position: relative; z-index: 1; }
+
+    .about {
+      padding: 100px 48px;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 80px;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      align-self: start;
+      padding-top: 8px;
+    }
+
+    .about-content h2 {
+      font-family: 'Fraunces', serif;
+      font-weight: 300;
+      font-size: clamp(32px, 4vw, 52px);
+      line-height: 1.2;
+      margin-bottom: 32px;
+      color: var(--text);
+    }
+
+    .about-content h2 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 40px;
+    }
+
+    .about-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 24px;
+      transition: border-color .2s;
+    }
+
+    .about-block:hover { border-color: var(--accent); }
+
+    .about-block-icon {
+      font-size: 22px;
+      margin-bottom: 12px;
+    }
+
+    .about-block h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: 2px;
+      font-size: 18px;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .about-block p {
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    /* PROJECTS */
+    .projects {
+      padding: 100px 48px;
+      border-top: 1px solid var(--border);
+    }
+
+    .projects-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 60px;
+    }
+
+    /* Mobile image grid — stack vertically and preserve aspect ratios */
+    @media (max-width: 600px) {
+      .modal-img-grid {
+        grid-template-columns: 1fr !important;
+      }
+      .voltbox-grid {
+        grid-template-columns: 1fr !important;
+      }
+      .projects-header {
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 16px;
+      }
+    }
+
+    .projects-header h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(48px, 7vw, 90px);
+      line-height: 0.9;
+      letter-spacing: 2px;
+    }
+
+    .projects-header h2 span {
+      display: block;
+      font-family: 'Fraunces', serif;
+      font-size: 18px;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--muted);
+      letter-spacing: 0;
+      margin-bottom: 6px;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .project-card {
+      background: var(--bg);
+      padding: 36px 32px;
+      cursor: pointer;
+      transition: background .2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background: var(--accent);
+      transition: width .3s ease;
+    }
+
+    .project-card:hover { background: var(--surface); }
+    .project-card:hover::after { width: 100%; }
+
+    .project-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 64px;
+      color: var(--border);
+      line-height: 1;
+      margin-bottom: 16px;
+      transition: color .2s;
+    }
+
+    .project-card:hover .project-num { color: var(--accent); }
+
+    .project-tag {
+      display: inline-block;
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 3px 8px;
+      margin-bottom: 12px;
+    }
+
+    .project-card h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 20px;
+      font-weight: 300;
+      margin-bottom: 12px;
+    }
+
+    .project-card p {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .project-arrow {
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 20px;
+      transition: color .2s, transform .2s;
+    }
+
+    .project-card:hover .project-arrow {
+      color: var(--accent);
+      transform: translateX(6px);
+    }
+
+    /* MODAL */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(8px);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      width: 90%;
+      max-width: 720px;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 48px;
+      position: relative;
+      transform: translateY(30px);
+      transition: transform .3s;
+    }
+
+    .modal-overlay.open .modal { transform: translateY(0); }
+
+    .modal-close {
+      position: absolute;
+      top: 20px; right: 24px;
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 24px;
+      cursor: pointer;
+      transition: color .2s;
+    }
+
+    .modal-close:hover { color: var(--accent); }
+
+    .modal-label {
+      font-size: 9px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .modal h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 36px;
+      font-weight: 300;
+      margin-bottom: 24px;
+      line-height: 1.2;
+    }
+
+    .modal-meta {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .modal-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .modal-meta-key {
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .modal-meta-val {
+      font-size: 13px;
+      color: var(--accent);
+    }
+
+    .modal p {
+      color: #a09c96;
+      font-size: 13.5px;
+      line-height: 1.9;
+      margin-bottom: 20px;
+    }
+
+    .modal-diagram {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 28px;
+      margin: 28px 0;
+      text-align: center;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 1px;
+    }
+
+    .modal-diagram svg {
+      display: block;
+      margin: 0 auto 12px;
+      width: 100%;
+      max-width: 480px;
+    }
+
+    /* SKILLS */
+    .skills {
+      padding: 100px 48px;
+      border-top: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 80px;
+    }
+
+    .skills-content h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 56px;
+      letter-spacing: 2px;
+      margin-bottom: 40px;
+    }
+
+    .skill-row {
+      margin-bottom: 20px;
+    }
+
+    .skill-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 11px;
+      letter-spacing: 1px;
+    }
+
+    .skill-name { color: var(--text); }
+    .skill-pct { color: var(--accent); }
+
+    .skill-bar {
+      height: 3px;
+      background: var(--border);
+      position: relative;
+    }
+
+    .skill-fill {
+      position: absolute;
+      top: 0; left: 0;
+      height: 100%;
+      background: var(--accent);
+      transform-origin: left;
+      animation: barGrow 1.2s ease both;
+    }
+
+    @keyframes barGrow {
+      from { transform: scaleX(0); }
+      to { transform: scaleX(1); }
+    }
+
+    .tools-grid {
+      margin-top: 48px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .tool-pill {
+      border: 1px solid var(--border);
+      padding: 10px 14px;
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: center;
+      transition: all .2s;
+    }
+
+    .tool-pill:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      position: relative;
+      z-index: 1;
+      padding: 0;
+    }
+
+    .footer-main {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 0;
+    }
+
+    .footer-col {
+      padding: 60px 48px;
+      border-right: 1px solid var(--border);
+    }
+
+    .footer-col:last-child { border-right: none; }
+
+    .footer-brand {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 36px;
+      letter-spacing: 3px;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .footer-tagline {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.8;
+      max-width: 300px;
+    }
+
+    .footer-col h4 {
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    .forum-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .forum-form input,
+    .forum-form textarea {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      padding: 12px 14px;
+      resize: none;
+      outline: none;
+      transition: border-color .2s;
+    }
+
+    .forum-form input:focus,
+    .forum-form textarea:focus {
+      border-color: var(--accent);
+    }
+
+    .forum-form input::placeholder,
+    .forum-form textarea::placeholder {
+      color: var(--muted);
+    }
+
+    .forum-form textarea { height: 80px; }
+
+    .forum-submit {
+      background: var(--accent);
+      color: #0d0d0d;
+      border: none;
+      padding: 12px;
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background .2s;
+    }
+
+    .forum-submit:hover { background: #f5d75a; }
+
+    .cv-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .cv-btn {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 20px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text);
+      text-decoration: none;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: all .2s;
+      cursor: pointer;
+    }
+
+    .cv-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(232,200,74,0.04);
+    }
+
+    .cv-btn .flag { font-size: 18px; }
+    .cv-btn .cv-label { flex: 1; }
+    .cv-btn .dl-icon { font-size: 14px; opacity: 0.5; transition: opacity .2s; }
+    .cv-btn:hover .dl-icon { opacity: 1; }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding: 20px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-copy {
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      color: var(--muted);
+    }
+
+    .footer-coords {
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      color: var(--muted);
+    }
+
+    /* Animations */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 32px; right: 32px;
+      background: var(--accent);
+      color: #0d0d0d;
+      padding: 14px 24px;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transform: translateY(80px);
+      opacity: 0;
+      transition: all .3s;
+      z-index: 999;
+    }
+
+    .toast.show { transform: translateY(0); opacity: 1; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); }
+
+    /* ── MOBILE ── */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; padding: 120px 24px 60px; }
+      .hero-right { display: none; }
+      .about, .skills { grid-template-columns: 1fr; padding: 60px 24px; }
+      .section-label { writing-mode: horizontal-tb; transform: none; }
+      .projects { padding: 60px 24px; }
+      .project-grid { grid-template-columns: 1fr; }
+      nav { padding: 16px 24px; }
+      .nav-links { gap: 20px; }
+      .footer-main { grid-template-columns: 1fr; }
+      .footer-col { border-right: none; border-bottom: 1px solid var(--border); padding: 40px 24px; }
+      .footer-bottom { padding: 16px 24px; flex-direction: column; gap: 8px; }
+      .about-grid { grid-template-columns: 1fr; }
+      .tools-grid { grid-template-columns: repeat(2, 1fr); }
+
+      /* Center icon + text inside social connect buttons */
+      .cv-btn {
+        justify-content: center;
+        gap: 8px;
+      }
+
+      /* Keep the CV download buttons left-aligned (flag · label · arrow) */
+      .cv-btn .cv-label { flex: unset; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">YS.</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <div class="hero-tag">Specialized Technician in Mechanical Engineering</div>
+    <h1 class="hero-name">Youness<br><span>Salmi</span></h1>
+    <p class="hero-title">Precision · Innovation · Integrity</p>
+    <p class="hero-desc">
+      From concept to 3D model, I enjoy bringing engineering ideas to life. My background in mechanical design,
+      manufacturing technologies, and technical problem-solving allows me to develop innovative solutions while
+      maintaining a strong focus on functionality, precision, and production feasibility.
+    </p>
+    <div class="hero-cta">
+      <button class="btn btn-primary" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">
+        ⬡ View Projects
+      </button>
+      <button class="btn btn-outline" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+        Get in Touch
+      </button>
+    </div>
+
+    <div class="stats-strip">
+      <div class="stat">
+        <div class="stat-num">02</div>
+        <div class="stat-label">Years of Technical Training</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">800+</div>
+        <div class="stat-label">Hours of CAD Modeling</div>
+      </div>
+      <div class="stat" style="border-right:none; margin-right:0;">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Passion for Engineering</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="schematic-card">
+      <div class="profile-photo-wrapper">
+        <div class="corner tl"></div>
+        <div class="corner tr"></div>
+        <div class="corner bl"></div>
+        <div class="corner br"></div>
+        <img src="my.photo.png" alt="Youness Salmi" style="width:100%;height:100%;object-fit:cover;display:block;" />
+      </div>
+      <div class="spec-list">
+        <div class="spec-item">
+          <div class="spec-key">Specialization</div>
+          <div class="spec-val">Study & Methods in Mechanical Manufacturing</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-key">Location</div>
+          <div class="spec-val">Nador, Morocco</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-key">Degree</div>
+          <div class="spec-val">DTS — Specialized Technician in Mech. Eng.</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-key">Software</div>
+          <div class="spec-val">CAD Softwares</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-key">Languages</div>
+          <div class="spec-val">AR · EN · FR</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-key">Status</div>
+          <div class="spec-val" style="color: #4caf50;">● Available</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="section-label">About Me</div>
+  <div class="about-content">
+    <h2>Turning Engineering Concepts<br>into <em>Functional Designs</em></h2>
+    <p style="color: #a09c96; font-size: 13.5px; line-height: 1.9; max-width: 600px;">
+      As a Mechanical Engineering Specialized Technician trained at the Cité des Métiers et des Compétences de L'Oriental,
+      I have developed a strong foundation in mechanical design, manufacturing processes, and product development.
+      My experience includes designing innovative projects in SolidWorks, exploring mechanical system optimization,
+      and solving real-world engineering challenges with a focus on functionality, efficiency, and manufacturability.
+    </p>
+    <div class="about-grid">
+      <div class="about-block">
+        <div class="about-block-icon">🖥️</div>
+        <h3>Design & CAD</h3>
+        <p>I use CAD tools to transform engineering concepts into detailed and functional 3D models. Through SolidWorks and technical drawing creation, I develop designs that balance performance, manufacturability, and practical implementation. My work focuses on creating efficient solutions while respecting real-world engineering constraints.</p>
+      </div>
+      <div class="about-block">
+        <div class="about-block-icon">💡</div>
+        <h3>Product Development</h3>
+        <p>From initial concept to final design, I enjoy solving mechanical challenges through innovation and structured engineering methods. Projects such as VoltBox and a hybrid turbo-compressor concept have strengthened my ability to analyze requirements, generate solutions, and refine designs through iterative development.</p>
+      </div>
+      <div class="about-block">
+        <div class="about-block-icon">⚙️</div>
+        <h3>Manufacturing & Production</h3>
+        <p>My training in mechanical manufacturing has provided a solid understanding of production methods, machining processes, materials, and industrial workflows. I design with manufacturing in mind, ensuring that engineering solutions remain practical, cost-effective, and ready for production environments.</p>
+      </div>
+      <div class="about-block">
+        <div class="about-block-icon">🔍</div>
+        <h3>Engineering Problem Solving</h3>
+        <p>Engineering is more than design — it's about finding effective solutions to technical challenges. Whether optimizing mechanical systems, addressing integration constraints, or improving product functionality, I apply analytical thinking and creativity to develop reliable and efficient outcomes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects" id="projects">
+  <div class="projects-header">
+    <h2>
+      <span>Selected work</span>
+      Projects
+    </h2>
+    <a href="http://projects.salmiyouness.website" target="_blank" rel="noopener" class="btn btn-outline">
+      About All Projects →
+    </a>
+  </div>
+
+  <div class="project-grid">
+    <div class="project-card" onclick="openModal('p1')">
+      <div class="project-num">01</div>
+      <div class="project-tag">Urban Transportation</div>
+      <h3>VELORA Cargo Bike</h3>
+      <p>Developed a sustainable cargo bike concept capable of transporting heavy loads safely and efficiently while reducing reliance on conventional delivery vehicles.</p>
+      <div class="project-arrow">→</div>
+    </div>
+    <div class="project-card" onclick="openModal('p2')">
+      <div class="project-num">02</div>
+      <div class="project-tag">Powertrain Innovation</div>
+      <h3>Hybrid Turbo-Compressor System</h3>
+      <p>Designed a SolidWorks concept combining turbocharger and supercharger principles to improve engine responsiveness, optimize airflow efficiency, and support manufacturing-oriented design.</p>
+      <div class="project-arrow">→</div>
+    </div>
+    <div class="project-card" onclick="openModal('p3')">
+      <div class="project-num">03</div>
+      <div class="project-tag">Product Development</div>
+      <h3>VoltBox Portable Battery System</h3>
+      <p>Designed a portable external battery concept for electric scooters, addressing charging infrastructure limitations through user-focused design, CAD modeling, and practical product development.</p>
+      <div class="project-arrow">→</div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="skills" id="skills">
+  <div class="section-label">Technical Skills</div>
+  <div class="skills-content">
+    <h2>Core Competencies</h2>
+    <div>
+      <div class="skill-row">
+        <div class="skill-info"><span class="skill-name">SolidWorks & 3D Design</span><span class="skill-pct">90%</span></div>
+        <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-info"><span class="skill-name">Technical Drawing & CAD Documentation</span><span class="skill-pct">85%</span></div>
+        <div class="skill-bar"><div class="skill-fill" style="width:85%; animation-delay:.1s"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-info"><span class="skill-name">Manufacturing Processes</span><span class="skill-pct">85%</span></div>
+        <div class="skill-bar"><div class="skill-fill" style="width:85%; animation-delay:.2s"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-info"><span class="skill-name">Product Development</span><span class="skill-pct">80%</span></div>
+        <div class="skill-bar"><div class="skill-fill" style="width:80%; animation-delay:.3s"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-info"><span class="skill-name">Engineering Problem Solving</span><span class="skill-pct">90%</span></div>
+        <div class="skill-bar"><div class="skill-fill" style="width:90%; animation-delay:.4s"></div></div>
+      </div>
+    </div>
+    <div class="tools-grid">
+      <div class="tool-pill">SolidWorks</div>
+      <div class="tool-pill">AutoCAD</div>
+      <div class="tool-pill">Catia V5</div>
+      <div class="tool-pill">FeatureCam</div>
+      <div class="tool-pill">Creatly</div>
+      <div class="tool-pill">CNC Machining</div>
+      <div class="tool-pill">Mechanical Design</div>
+      <div class="tool-pill">Manufacturing Processes</div>
+      <div class="tool-pill">Lean Manufacturing</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="footer-main">
+    <!-- Brand + tagline -->
+    <div class="footer-col">
+      <div class="footer-brand">Youness Salmi</div>
+      <p class="footer-tagline">
+        Mechanical Engineering Specialized Technician · Morocco<br><br>
+        Open to internships, engineering projects, and entry-level opportunities in mechanical design,
+        CAD modeling, manufacturing, and product development.
+      </p>
+      <a href="https://khamsat.com/designing/industrial-engineering/4294363-%D8%A3%D9%82%D9%88%D9%85-%D8%A8%D8%AA%D8%B5%D9%85%D9%8A%D9%85-%D9%86%D9%85%D8%A7%D8%B0%D8%AC-%D9%85%D9%8A%D9%83%D8%A7%D9%86%D9%8A%D9%83%D9%8A%D8%A9-%D8%A7%D8%AD%D8%AA%D8%B1%D8%A7%D9%81%D9%8A%D8%A9-3d-%D8%A8%D8%A7%D8%B3%D8%AA%D8%AE%D8%AF%D8%A7%D9%85-solidworks" target="_blank" rel="noopener" class="cv-btn" style="display:inline-flex;margin-top:24px;gap:10px;">
+        <span style="font-size:16px;"><img src="work.png" alt="Work" style="width:22px;height:22px;object-fit:contain;vertical-align:middle;"></span>
+        <span>Hire Me on Khamsat</span>
+        <span style="opacity:0.5;font-size:13px;">↗</span>
+      </a>
+    </div>
+
+    <!-- Contact form -->
+    <div class="footer-col">
+      <h4>Send a Message</h4>
+      <div class="forum-form" id="contactForm">
+        <input type="text" id="forumName" placeholder="Your name" />
+        <input type="email" id="forumEmail" placeholder="Email address" />
+        <textarea id="forumMsg" placeholder="Your message or project brief…"></textarea>
+        <button class="forum-submit" onclick="submitForm()">Send Message</button>
+      </div>
+    </div>
+
+    <!-- CV Downloads -->
+    <div class="footer-col">
+      <h4>Download CV</h4>
+      <div class="cv-buttons">
+        <a class="cv-btn" href="https://drive.google.com/file/d/1Rloq_ASpnS66mdXDA7e9wHSax1Axeh5x/view?usp=sharing" target="_blank" rel="noopener">
+          <span class="flag">🇬🇧</span>
+          <span class="cv-label">CV — English</span>
+          <span class="dl-icon">⬇</span>
+        </a>
+        <a class="cv-btn" href="https://drive.google.com/file/d/1angHGe8dISGgql9SftfhDg4fQtBt--bP/view?usp=sharing" target="_blank" rel="noopener">
+          <span class="flag">🇫🇷</span>
+          <span class="cv-label">CV — Français</span>
+          <span class="dl-icon">⬇</span>
+        </a>
+      </div>
+      <div style="margin-top: 32px;">
+        <h4 style="margin-bottom:16px;">Connect</h4>
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <a onclick="copyEmail()" class="cv-btn" style="flex:1; min-width:120px;">
+            <img src="email.png" alt="Email" style="width:22px;height:22px;object-fit:contain;">
+            Email
+          </a>
+          <a href="https://www.linkedin.com/in/youness-salmi-71b777331?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" rel="noopener" class="cv-btn" style="flex:1; min-width:120px;">
+            <img src="linkedin.png" alt="LinkedIn" style="width:22px;height:22px;object-fit:contain;">
+            LinkedIn
+          </a>
+          <a onclick="copyPhone()" class="cv-btn" style="flex:1; min-width:120px;">
+            <img src="phone.png" alt="Phone" style="width:22px;height:22px;object-fit:contain;">
+            Phone
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="footer-copy">© Youness Salmi — All rights reserved</div>
+    <div class="footer-coords">Nador, Morocco.</div>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOnBg(event)">
+  <div class="modal" id="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-label" id="modalLabel"></div>
+    <h2 id="modalTitle"></h2>
+    <div class="modal-meta" id="modalMeta"></div>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+  const projects = {
+    p1: {
+      label: 'Project 01 — Sustainable Mobility',
+      title: 'VELORA Cargo Bike',
+      meta: [
+        { key: 'Type', val: 'Mechanical Engineering Project' },
+        { key: 'Duration', val: 'Two months' },
+        { key: 'Software', val: 'SolidWorks, Technical Design Tools' },
+        { key: 'Focus', val: 'Sustainable Urban Transportation' },
+      ],
+      body: `
+        <p>VELORA is a cargo bike concept developed to provide an efficient, affordable, and environmentally friendly solution for urban goods transportation. Inspired by modern cargo bike systems used in European cities, the project was designed to support local deliveries, small businesses, and everyday transport needs while reducing dependence on conventional motorized vehicles.</p>
+        <div class="modal-diagram">
+          <div class="modal-img-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
+            <img src="011.png" alt="VELORA Cargo Bike 1" style="width:100%;display:block;object-fit:cover;aspect-ratio:4/3;" />
+            <img src="012.png" alt="VELORA Cargo Bike 2" style="width:100%;display:block;object-fit:cover;aspect-ratio:4/3;" />
+            <img src="013.png" alt="VELORA Cargo Bike 3" style="width:100%;display:block;object-fit:cover;aspect-ratio:4/3;" />
+            <img src="014.png" alt="VELORA Cargo Bike 4" style="width:100%;display:block;object-fit:cover;aspect-ratio:4/3;" />
+          </div>
+          FIG. 01 — VELORA Cargo Bike
+        </div>
+        <p>The main challenge was creating a vehicle capable of carrying significant loads without compromising stability, maneuverability, or rider safety. The design process involved evaluating different frame geometries, load distribution strategies, and material options to achieve a balance between structural strength and overall weight.</p>
+        <p>Using SolidWorks, I contributed to the development of the cargo bike's structure, focusing on durability, manufacturability, and practical real-world use. Particular attention was given to frame reinforcement, cargo platform integration, and ergonomic considerations to ensure a reliable and user-friendly design.</p>
+        <p>The final concept delivers a robust and sustainable transportation solution that demonstrates key mechanical engineering principles, including structural design, material selection, manufacturing considerations, and product development. The project highlights the potential of cargo bikes as an effective alternative for urban logistics and last-mile delivery applications.</p>
+      `
+    },
+    p2: {
+      label: 'Project 02 — Powertrain Innovation',
+      title: 'Hybrid Turbo-Compressor System',
+      meta: [
+        { key: 'Sector', val: 'Automotive Engineering' },
+        { key: 'Duration', val: 'Concept Development Project' },
+        { key: 'Software', val: 'SolidWorks' },
+        { key: 'Focus', val: 'Performance & Manufacturability' },
+      ],
+      body: `
+        <p>This project explores a hybrid forced-induction concept designed to combine the rapid response of a supercharger with the efficiency of a turbocharger. The objective was to investigate potential solutions to common performance limitations such as turbo lag, airflow inconsistency, and manufacturing complexity.</p>
+        <div class="modal-diagram">
+          <div style="padding: 0 28px; margin-bottom:12px;">
+            <img src="021.png" alt="Hybrid Turbo-Compressor System" style="width:100%;display:block;object-fit:contain;" />
+          </div>
+          FIG. 02 — Hybrid Turbo-Compressor System
+        </div>
+        <p>The design process involved researching existing forced-induction technologies, evaluating their strengths and weaknesses, and developing a preliminary mechanical architecture capable of integrating both systems into a single concept. Particular attention was given to airflow management, component integration, and mechanical simplicity to support future manufacturability.</p>
+        <p>Using SolidWorks, I created a detailed 3D model of the proposed system, focusing on packaging constraints, mechanical feasibility, and ease of assembly. The project reflects my interest in automotive engineering and demonstrates the application of CAD design, engineering analysis, and product development principles to a real-world performance challenge.</p>
+        <p>The resulting concept serves as a foundation for further development and highlights opportunities for improving engine responsiveness and overall system efficiency through innovative mechanical design.</p>
+      `
+    },
+    p3: {
+      label: 'Project 03 — Energy Innovation',
+      title: 'VoltBox Portable Battery System',
+      meta: [
+        { key: 'Application', val: 'Electric Mobility' },
+        { key: 'Achievement', val: 'CMC Trophy Finalist 2025' },
+        { key: 'Software', val: 'SolidWorks' },
+        { key: 'Duration', val: '90 days' },
+      ],
+      body: `
+        <p>VoltBox is a portable external battery concept developed to address a critical challenge in Morocco's growing electric scooter market: the limited availability of charging infrastructure. The project was conceived as a practical and accessible solution to extend vehicle range and improve user convenience without requiring major changes to existing scooter designs.</p>
+        <div class="modal-diagram">
+          <div class="voltbox-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
+            <img src="031.jpg" alt="VoltBox 1" style="width:100%;display:block;object-fit:cover;aspect-ratio:4/5;" />
+            <img src="032.jpg" alt="VoltBox 2" style="width:100%;display:block;object-fit:cover;aspect-ratio:4/5;" />
+            <img src="033.jpg" alt="VoltBox 3" style="width:100%;display:block;object-fit:cover;aspect-ratio:4/2.8;" />
+            <img src="034.jpg" alt="VoltBox 4" style="width:100%;display:block;object-fit:cover;aspect-ratio:4/2.8;" />
+          </div>
+          FIG. 03 — VoltBox Portable Battery System
+        </div>
+        <p>The development process focused on product architecture, portability, and integration feasibility. A complete 3D model was created in SolidWorks to evaluate component packaging, battery placement, and overall usability while maintaining a compact and transportable form factor. Particular attention was given to balancing energy storage capacity with weight, safety, and ease of use.</p>
+        <p>The project was selected as a finalist in the first edition of the CMC Trophy, where it was presented before industry professionals, institutional representatives, and entrepreneurship stakeholders. Beyond the technical design work, the experience provided valuable exposure to innovation, project presentation, and real-world product development challenges.</p>
+        <p>VoltBox demonstrates the application of mechanical design principles to sustainable mobility and reflects my interest in developing practical engineering solutions that address emerging transportation needs.</p>
+      `
+    }
+  };
+
+  function openModal(key) {
+    const p = projects[key];
+    if (!p) return;
+    document.getElementById('modalLabel').textContent = p.label;
+    document.getElementById('modalTitle').textContent = p.title;
+    document.getElementById('modalMeta').innerHTML = p.meta.map(m =>
+      `<div class="modal-meta-item"><div class="modal-meta-key">${m.key}</div><div class="modal-meta-val">${m.val}</div></div>`
+    ).join('');
+    document.getElementById('modalBody').innerHTML = p.body;
+    document.getElementById('modalOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function closeModalOnBg(e) {
+    if (e.target === document.getElementById('modalOverlay')) closeModal();
+  }
+
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  async function submitForm() {
+    const name = document.getElementById('forumName').value.trim();
+    const email = document.getElementById('forumEmail').value.trim();
+    const msg = document.getElementById('forumMsg').value.trim();
+    if (!name || !email || !msg) { showToast('Please fill all fields'); return; }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) { showToast('Please enter a valid email address.'); return; }
+
+    const submitBtn = document.querySelector('.forum-submit');
+    submitBtn.textContent = 'Sending…';
+    submitBtn.disabled = true;
+
+    try {
+      const res = await fetch('https://formspree.io/f/xeewqqov', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, message: msg })
+      });
+
+      if (res.ok) {
+        document.getElementById('forumName').value = '';
+        document.getElementById('forumEmail').value = '';
+        document.getElementById('forumMsg').value = '';
+        showToast('Message sent — thank you!');
+      } else {
+        const data = await res.json();
+        if (data.errors && data.errors.length > 0) {
+          const messages = data.errors.map(e => {
+            if (e.field === 'email' || (e.message && e.message.toLowerCase().includes('email'))) return 'Invalid email address.';
+            if (e.field === 'name') return 'Name is required.';
+            if (e.field === 'message') return 'Message cannot be empty.';
+            return e.message || 'Unexpected error.';
+          });
+          showToast(messages[0]);
+        } else {
+          showToast('Submission failed. Please try again.');
+        }
+      }
+    } catch (err) {
+      showToast('Network error. Please retry.');
+    } finally {
+      submitBtn.textContent = 'Send Message';
+      submitBtn.disabled = false;
+    }
+  }
+
+  function copyEmail() {
+    navigator.clipboard.writeText('career@salmiyouness.website')
+      .then(() => showToast('Email copied to clipboard!'))
+      .catch(() => showToast('career@salmiyouness.website'));
+  }
+
+  function copyPhone() {
+    navigator.clipboard.writeText('+212784140087')
+      .then(() => showToast('Phone number copied to clipboard!'))
+      .catch(() => showToast('+212 784-140087'));
+  }
+</script>
+</body>
+</html>
